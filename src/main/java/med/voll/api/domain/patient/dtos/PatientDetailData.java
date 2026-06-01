@@ -1,4 +1,6 @@
-package med.voll.api.domain.patient;
+package med.voll.api.domain.patient.dtos;
+
+import med.voll.api.domain.patient.Patient;
 
 public record PatientDetailData(
                                 Long id,

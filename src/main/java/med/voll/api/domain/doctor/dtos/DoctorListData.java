@@ -1,4 +1,7 @@
-package med.voll.api.domain.doctor;
+package med.voll.api.domain.doctor.dtos;
+
+import med.voll.api.domain.doctor.Doctor;
+import med.voll.api.domain.doctor.Specialty;
 
 public record DoctorListData(Long id,
                              String name,

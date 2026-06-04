@@ -31,6 +31,20 @@ public class TokenService {
             throw new RuntimeException("error on generating jwt token", exception);
         }
     }
+
+    public String getSubject (String tokenJWT){
+        try {
+            var algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
+                    .withIssuer("API Voll.med")
+                    .build()
+                    .verify(tokenJWT)
+                    .getSubject();
+        } catch (JWTVerificationException exception){
+            throw new RuntimeException("JWT Token is invalid or expired!");
+        }
+    }
+
     private Instant expirationDate() {
         return LocalDate.now()
                 .plusDays(1)

@@ -21,12 +21,12 @@ public class TokenService {
     public String createToken(User user){
         System.out.println(secret);
         try {
-            var algorithm = Algorithm.HMAC256(secret);
+            var algorithm = Algorithm.HMAC256(secret); // cria senha secreta de autenticação do token (selo de autenticidade)
 
             return JWT.create()
-                    .withIssuer("API Voll.med")
-                    .withSubject(user.getLogin())
-                    .withExpiresAt(expirationDate())
+                    .withIssuer("API Voll.med") // define quem criou o token
+                    .withSubject(user.getLogin()) // define o login de quem pertence o token (usuário)
+                    .withExpiresAt(expirationDate()) // define data de expiração
                     .sign(algorithm);
         } catch (JWTCreationException exception){
             throw new RuntimeException("error on generating jwt token", exception);
@@ -36,17 +36,18 @@ public class TokenService {
     public String getSubject (String tokenJWT){
         try {
             var algorithm = Algorithm.HMAC256(secret);
-            return JWT.require(algorithm)
-                    .withIssuer("API Voll.med")
-                    .build()
-                    .verify(tokenJWT)
-                    .getSubject();
-        } catch (JWTVerificationException exception){
+            return JWT.require(algorithm)// Criamos um verificador de JWT usando nosso algoritmo.
+                    .withIssuer("API Voll.med")// token deve ter sido emitido por 'API Voll.med'
+                    .build() // Criamos efetivamente o objeto responsável por realizar a verificação.
+                    .verify(tokenJWT) // validamos de verdade.
+                    .getSubject(); // se válido, retorna o campo subject (ex: `"user@email.com"`)
+
+        } catch (JWTVerificationException exception){ // se não, caí em exceção
             throw new RuntimeException("JWT Token is invalid or expired!");
         }
     }
 
-    private Instant expirationDate() {
+    private Instant expirationDate() { // metodo responsável por determinar a data de expiração do token
         return LocalDate.now()
                 .plusDays(3)
                 .atStartOfDay()

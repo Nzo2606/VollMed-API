@@ -25,8 +25,10 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         var subject = tokenService.getSubject(tokenJWT);
 
-        System.out.println(subject);
-
+            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            System.out.println("LOGADO NA REQUISIÇÃO!");
+        }
         filterChain.doFilter(request, response);
 
     }

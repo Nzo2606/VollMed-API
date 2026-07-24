@@ -49,7 +49,7 @@ public class TokenService {
 
     private Instant expirationDate() { // metodo responsável por determinar a data de expiração do token
         return LocalDate.now()
-                .plusDays(3)
+                .plusDays(100)
                 .atStartOfDay()
                 .toInstant(ZoneOffset.of("-03:00"));
     }

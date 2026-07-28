@@ -29,4 +29,11 @@ public class AppointmentController {
         return ResponseEntity.ok(new AppointmentDetailData(null, null, null, null));
 
     }
+
+    @DeleteMapping
+    @Transactional
+    public ResponseEntity cancel(@RequestBody @Valid AppointmentCancellationData data){
+        agenda.cancel(data);
+        return ResponseEntity.noContent().build();
+    }
 }

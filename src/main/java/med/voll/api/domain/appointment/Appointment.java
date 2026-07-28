@@ -34,10 +34,18 @@ public class Appointment {
 
         private LocalDateTime data;
 
+        private CancellationReason cancellation_Reason;
+
+        public void cancel(CancellationReason reason) {
+                this.cancellation_Reason = reason;
+        }
+
         public Appointment(Long id, Doctor doctor, Patient patient, LocalDateTime data) {
                 this.id = id;
                 this.doctor = doctor;
                 this.patient = patient;
                 this.data = data;
         }
+
+
 }

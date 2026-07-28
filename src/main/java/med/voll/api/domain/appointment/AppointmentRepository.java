@@ -4,4 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     Boolean existsByDoctorIdAndData(Long aLong, @NotNull @Future LocalDateTime data);
+
+    Boolean existsByPatientIdAndDataBetween(@NotNull Long aLong, LocalDateTime firstTimeSlot, LocalDateTime lastTimeSlot);
 }

@@ -11,7 +11,7 @@ import med.voll.api.domain.doctor.dtos.DoctorRegistrationData;
 import med.voll.api.domain.doctor.dtos.DoctorUpdateData;
 
 @Table(name = "doctors")
-@Entity(name = "doctors")
+@Entity(name = "Doctor")
 
 //LOMBOK
 @Getter

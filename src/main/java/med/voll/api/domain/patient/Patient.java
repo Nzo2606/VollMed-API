@@ -10,7 +10,7 @@ import med.voll.api.domain.address.Address;
 import med.voll.api.domain.patient.dtos.PatientRegistrationData;
 import med.voll.api.domain.patient.dtos.PatientUpdateData;
 
-@Entity(name = "patients")
+@Entity(name = "Patient")
 @Table(name = "patients")
 
 //LOMBOK

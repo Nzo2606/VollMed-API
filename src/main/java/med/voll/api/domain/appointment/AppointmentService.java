@@ -34,6 +34,8 @@ public class AppointmentService {
             throw new ValidationException("Informed doctor ID does not exist!");
         }
 
+        validators.forEach(v -> v.validate(data));
+
         var patient = patientRepository.findById(data.patientId()).get();
         var doctor = chooseDoctor(data);
         var appointment = new Appointment(null, doctor, patient, data.data());

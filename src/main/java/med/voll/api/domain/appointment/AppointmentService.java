@@ -21,6 +21,8 @@ public class AppointmentService {
     @Autowired
     private PatientRepository patientRepository;
 
+    @Autowired
+    private List<AppointmentSchedulingValidator> validators;
 
     public void schedule(AppointmentSchedulingData data){
 

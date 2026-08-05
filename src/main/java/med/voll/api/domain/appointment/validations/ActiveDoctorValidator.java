@@ -3,9 +3,11 @@ package med.voll.api.domain.appointment.validations;
 import jakarta.validation.ValidationException;
 import med.voll.api.domain.appointment.AppointmentSchedulingData;
 import med.voll.api.domain.doctor.DoctorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class ActiveDoctorValidator implements AppointmentSchedulingValidator{
 
+    @Autowired
     private DoctorRepository repository;
 
     public void validate (AppointmentSchedulingData data){

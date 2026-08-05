@@ -6,7 +6,7 @@ import med.voll.api.domain.appointment.AppointmentSchedulingData;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class AdvanceTimeValidator {
+public class AdvanceTimeValidator implements AppointmentSchedulingValidator{
     // trata horário de regra de 30 minutos de antecedência no mínimo para agendamento de consultas
 
     public void validate (AppointmentSchedulingData data){

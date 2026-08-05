@@ -4,7 +4,7 @@ import jakarta.validation.ValidationException;
 import med.voll.api.domain.appointment.AppointmentSchedulingData;
 import med.voll.api.domain.patient.PatientRepository;
 
-public class ActivePatientValidator {
+public class ActivePatientValidator implements AppointmentSchedulingValidator{
 
     private PatientRepository repository;
 

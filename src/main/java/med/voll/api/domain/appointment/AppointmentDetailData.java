@@ -16,4 +16,9 @@ public record AppointmentDetailData(
                                     @NotNull
                                     @Future
                                     LocalDateTime data) {
+
+    public AppointmentDetailData(Appointment appointment) {
+        this(appointment.getId(), appointment.getDoctor().getId(),
+                appointment.getPatient().getId(), appointment.getData());
+    }
 }

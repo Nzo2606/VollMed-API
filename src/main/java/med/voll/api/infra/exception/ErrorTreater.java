@@ -24,6 +24,11 @@ public class ErrorTreater
         return ResponseEntity.badRequest().body(errors.stream().map(ValidationErrorData::new).toList());
     }
 
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity treatBusinessRule(ValidationException ex){ // retorna mensagem de erro correspondente à exceção encontrada
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
     private record ValidationErrorData(String field, String message){ //pega somente os campos `field` e `message` do trace de erro
         public ValidationErrorData (FieldError error){
             this(error.getField(), error.getDefaultMessage());

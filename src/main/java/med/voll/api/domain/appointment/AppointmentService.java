@@ -38,6 +38,11 @@ public class AppointmentService {
 
         var patient = patientRepository.findById(data.patientId()).get();
         var doctor = chooseDoctor(data);
+
+        if (doctor == null){
+            throw new ValidationException("There is no available doctor on this date!");
+        }
+
         var appointment = new Appointment(null, doctor, patient, data.data());
         appointmentRepository.save(appointment);
     }

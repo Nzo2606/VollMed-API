@@ -24,8 +24,12 @@ public class AppointmentController {
 
         agenda.schedule(data);
 
-        return ResponseEntity.ok(new AppointmentDetailData(null, null, null, null));
-
+    @GetMapping
+    @Transactional
+    public ResponseEntity<Page<AppointmentDetailData>> listAppointments(@PageableDefault(size = 10, sort = {"data"}) Pageable pagination){
+        var appointments = agenda.listAll(pagination);
+        
+        return ResponseEntity.ok(appointments);
     }
 
     @DeleteMapping

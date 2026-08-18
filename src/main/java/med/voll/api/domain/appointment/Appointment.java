@@ -34,6 +34,7 @@ public class Appointment {
 
         private LocalDateTime data;
 
+        @Enumerated(EnumType.STRING)
         private CancellationReason cancellation_Reason;
 
         public void cancel(CancellationReason reason) {

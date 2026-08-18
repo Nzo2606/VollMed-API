@@ -47,6 +47,12 @@ public class AppointmentService {
         appointmentRepository.save(appointment);
     }
 
+    //Método de listagem de consultas
+    public Page<AppointmentDetailData> listAll(Pageable pagination){
+        return appointmentRepository.findAll(pagination).map(AppointmentDetailData::new);
+    }
+
+    //Método de escolha de médico
     private Doctor chooseDoctor (AppointmentSchedulingData data){
         if (data.doctorId() != null){
             return doctorRepository.getReferenceById(data.doctorId());

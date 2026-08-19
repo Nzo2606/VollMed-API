@@ -69,6 +69,9 @@ public class AppointmentService {
         if (!appointmentRepository.existsById(data.appointmentId())){
             throw new ValidationException("Informed appointment Id does not exist!");
         }
+        if(appointmentRepository.appointmentIsCanceled(data.appointmentId()) != null){
+            throw new ValidationException("You can't cancel an appointment that is already canceled!");
+        }
 
         var appointment = appointmentRepository.getReferenceById(data.appointmentId());
         appointment.cancel(data.reason());

@@ -50,7 +50,8 @@ public class AppointmentService {
             throw new ValidationException("There is no available doctor on this date!");
         }
 
-        var appointment = new Appointment(null, doctor, patient, data.data());
+        var appointment = new Appointment(doctor, patient, data.date());
+        appointment.setStatus(data);
         appointmentRepository.save(appointment);
     }
 

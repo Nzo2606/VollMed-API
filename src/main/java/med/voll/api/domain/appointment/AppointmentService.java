@@ -29,7 +29,9 @@ public class AppointmentService {
     @Autowired
     private List<CancellationValidator> cancellationValidators;
 
-    public void schedule(AppointmentSchedulingData data){
+
+    //Método de agendamento de consultas
+    public AppointmentDetailData schedule(AppointmentSchedulingData data){
 
         if (!patientRepository.existsById(data.patientId())){
             throw new ValidationException("Informed patient ID does not exist!");

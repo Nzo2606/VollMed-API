@@ -1,7 +1,7 @@
-package med.voll.api.domain.appointment.validations;
+package med.voll.api.domain.appointment.validations.schedulling;
 
 import jakarta.validation.ValidationException;
-import med.voll.api.domain.appointment.AppointmentSchedulingData;
+import med.voll.api.domain.appointment.validations.dtos.AppointmentSchedulingData;
 import med.voll.api.domain.patient.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

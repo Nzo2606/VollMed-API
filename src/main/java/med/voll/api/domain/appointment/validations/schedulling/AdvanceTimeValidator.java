@@ -1,7 +1,7 @@
-package med.voll.api.domain.appointment.validations;
+package med.voll.api.domain.appointment.validations.schedulling;
 
 import jakarta.validation.ValidationException;
-import med.voll.api.domain.appointment.AppointmentSchedulingData;
+import med.voll.api.domain.appointment.validations.dtos.AppointmentSchedulingData;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -12,7 +12,7 @@ public class AdvanceTimeValidator implements AppointmentSchedulingValidator{
     // trata horário de regra de 30 minutos de antecedência no mínimo para agendamento de consultas
 
     public void validate (AppointmentSchedulingData data){
-        var appointmentDate = data.data();
+        var appointmentDate = data.date();
 
         //pega o tempo atual
         var now = LocalDateTime.now();

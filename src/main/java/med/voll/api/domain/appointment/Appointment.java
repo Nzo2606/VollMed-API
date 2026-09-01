@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import med.voll.api.domain.appointment.validations.dtos.AppointmentCancellationData;
+import med.voll.api.domain.appointment.validations.dtos.AppointmentSchedulingData;
 import med.voll.api.domain.doctor.Doctor;
 import med.voll.api.domain.patient.Patient;
 
@@ -32,7 +34,7 @@ public class Appointment {
         @JoinColumn(name = "patient_id")
         private Patient patient;
 
-        private LocalDateTime data;
+        private LocalDateTime date;
 
         @Enumerated(EnumType.STRING)
         private CancellationReason cancellation_Reason;
@@ -57,7 +59,7 @@ public class Appointment {
         public Appointment(Doctor doctor, Patient patient, @NotNull @Future LocalDateTime date) {
                 this.doctor = doctor;
                 this.patient = patient;
-                this.data = data;
+                this.date = date;
         }
 
 

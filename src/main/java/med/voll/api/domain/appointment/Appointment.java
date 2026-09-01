@@ -41,8 +41,20 @@ public class Appointment {
                 this.cancellation_Reason = reason;
         }
 
-        public Appointment(Long id, Doctor doctor, Patient patient, LocalDateTime data) {
-                this.id = id;
+        private String status;
+
+        public void setStatus(AppointmentSchedulingData data) {
+                if (cancellation_Reason != null){
+                        this.status = "CANCELADA";
+                }
+                else if (date.isAfter(data.date())) {
+                        this.status = "CONCLUÍDA";
+                }
+                else {
+                        this.status = "EM AGUARDO";
+                }
+        }
+        public Appointment(Doctor doctor, Patient patient, @NotNull @Future LocalDateTime date) {
                 this.doctor = doctor;
                 this.patient = patient;
                 this.data = data;

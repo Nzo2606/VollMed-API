@@ -1,7 +1,9 @@
-package med.voll.api.domain.appointment;
+package med.voll.api.domain.appointment.validations.dtos;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+import med.voll.api.domain.appointment.Appointment;
+import med.voll.api.domain.appointment.CancellationReason;
 
 import java.time.LocalDateTime;
 

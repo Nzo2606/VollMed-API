@@ -15,7 +15,11 @@ public record AppointmentDetailData(
 
                                     @NotNull
                                     @Future
-                                    LocalDateTime data) {
+                                    LocalDateTime date,
+
+                                    String status,
+
+                                    CancellationReason cancellation_reason) {
 
     public AppointmentDetailData(Appointment appointment) {
         this(appointment.getId(), appointment.getDoctor().getId(),

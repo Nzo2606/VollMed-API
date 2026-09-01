@@ -84,5 +84,6 @@ public class AppointmentService {
 
         var appointment = appointmentRepository.getReferenceById(data.appointmentId());
         appointment.cancel(data.reason());
+        appointment.setStatus(schedulingData);
     }
 }

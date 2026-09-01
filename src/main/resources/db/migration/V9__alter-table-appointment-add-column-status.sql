@@ -1,0 +1,1 @@
+alter table appointment add column status varchar(100);

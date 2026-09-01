@@ -91,4 +91,12 @@ public class Doctor {
     public Address getAddress() {
         return address;
     }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 }

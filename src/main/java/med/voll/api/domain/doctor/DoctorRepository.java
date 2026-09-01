@@ -22,12 +22,12 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
             d.id not in(
                 select a.doctor.id from Appointment a
                 where
-                a.data = :data
+                a.date = :date
             )
             order by rand()
             limit 1
             """)
-    Doctor chooseRandomDoctorAvailableOnTheDate(Specialty specialty, @NotNull @Future LocalDateTime data);
+    Doctor chooseRandomDoctorAvailableOnTheDate(Specialty specialty, @NotNull @Future LocalDateTime date);
 
     @Query("""
             select d.active

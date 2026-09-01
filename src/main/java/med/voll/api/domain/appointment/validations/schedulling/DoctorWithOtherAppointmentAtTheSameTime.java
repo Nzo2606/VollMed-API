@@ -1,8 +1,8 @@
-package med.voll.api.domain.appointment.validations;
+package med.voll.api.domain.appointment.validations.schedulling;
 
 import jakarta.validation.ValidationException;
 import med.voll.api.domain.appointment.AppointmentRepository;
-import med.voll.api.domain.appointment.AppointmentSchedulingData;
+import med.voll.api.domain.appointment.validations.dtos.AppointmentSchedulingData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ public class DoctorWithOtherAppointmentAtTheSameTime implements AppointmentSched
     private AppointmentRepository repository;
 
     public void validate (AppointmentSchedulingData data){
-        var doctorHasOtherAppointmentAtTheSameTime = repository.existsByDoctorIdAndData(data.doctorId(), data.data());
+        var doctorHasOtherAppointmentAtTheSameTime = repository.existsByDoctorIdAndDate(data.doctorId(), data.date());
         if (doctorHasOtherAppointmentAtTheSameTime){
             throw new ValidationException("This Doctor has other appointment in this same time slot");
         }

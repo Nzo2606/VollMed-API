@@ -1,8 +1,8 @@
-package med.voll.api.domain.appointment.validations;
+package med.voll.api.domain.appointment.validations.schedulling;
 
 import jakarta.validation.ValidationException;
 import med.voll.api.domain.appointment.AppointmentRepository;
-import med.voll.api.domain.appointment.AppointmentSchedulingData;
+import med.voll.api.domain.appointment.validations.dtos.AppointmentSchedulingData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +13,9 @@ public class PatientWithoutOtherAppointmentOnTheDayValidator implements Appointm
     AppointmentRepository repository;
 
     public void validate (AppointmentSchedulingData data){
-        var firstTimeSlot = data.data().withHour(7);
-        var lastTimeSlot = data.data().withHour(18);
-        var patientHasOtherAppointmentOnTheDay = repository.existsByPatientIdAndDataBetween(data.patientId(), firstTimeSlot, lastTimeSlot);
+        var firstTimeSlot = data.date().withHour(7);
+        var lastTimeSlot = data.date().withHour(18);
+        var patientHasOtherAppointmentOnTheDay = repository.existsByPatientIdAndDateBetween(data.patientId(), firstTimeSlot, lastTimeSlot);
         if (patientHasOtherAppointmentOnTheDay){
             throw new ValidationException("The patient already has an scheduled appointment on this day.");
         }

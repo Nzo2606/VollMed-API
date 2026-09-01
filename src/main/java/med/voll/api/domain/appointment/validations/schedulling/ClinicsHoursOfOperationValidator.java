@@ -1,7 +1,7 @@
-package med.voll.api.domain.appointment.validations;
+package med.voll.api.domain.appointment.validations.schedulling;
 
 import jakarta.validation.ValidationException;
-import med.voll.api.domain.appointment.AppointmentSchedulingData;
+import med.voll.api.domain.appointment.validations.dtos.AppointmentSchedulingData;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
@@ -10,7 +10,7 @@ import java.time.DayOfWeek;
 public class ClinicsHoursOfOperationValidator implements AppointmentSchedulingValidator{
 
     public void validate (AppointmentSchedulingData data){
-        var appointmentDate = data.data();
+        var appointmentDate = data.date();
 
         // validador de domingo
         var sunday = appointmentDate.getDayOfWeek().equals(DayOfWeek.SUNDAY);

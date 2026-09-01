@@ -1,4 +1,4 @@
-package med.voll.api.domain.appointment;
+package med.voll.api.domain.appointment.validations.dtos;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +14,7 @@ public record AppointmentSchedulingData(
 
         @NotNull
         @Future
-        LocalDateTime data,
+        LocalDateTime date,
 
         Specialty specialty){
 

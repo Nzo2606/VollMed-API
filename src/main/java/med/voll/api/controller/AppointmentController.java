@@ -2,11 +2,14 @@ package med.voll.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.domain.appointment.AppointmentCancellationData;
-import med.voll.api.domain.appointment.AppointmentDetailData;
-import med.voll.api.domain.appointment.AppointmentSchedulingData;
-import med.voll.api.domain.appointment.AppointmentService;
+import med.voll.api.domain.appointment.*;
+import med.voll.api.domain.appointment.validations.dtos.AppointmentCancellationData;
+import med.voll.api.domain.appointment.validations.dtos.AppointmentDetailData;
+import med.voll.api.domain.appointment.validations.dtos.AppointmentSchedulingData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,19 +21,24 @@ public class AppointmentController {
     AppointmentService agenda;
 
 
+
     @PostMapping
     @Transactional
     public ResponseEntity schedule(@RequestBody @Valid AppointmentSchedulingData data){
 
-        agenda.schedule(data);
+        var dto = agenda.schedule(data);
+
+        return ResponseEntity.ok(dto);
+
+    }
 
     @GetMapping
     @Transactional
-    public ResponseEntity<Page<AppointmentDetailData>> listAppointments(@PageableDefault(size = 10, sort = {"data"}) Pageable pagination){
+    public ResponseEntity<Page<AppointmentDetailData>> listAppointments(@PageableDefault(size = 10, sort = {"date"}) Pageable pagination){
         var appointments = agenda.listAll(pagination);
-        
         return ResponseEntity.ok(appointments);
     }
+
 
     @DeleteMapping
     @Transactional

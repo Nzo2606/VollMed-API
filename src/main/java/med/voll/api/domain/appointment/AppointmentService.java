@@ -74,6 +74,7 @@ public class AppointmentService {
         return doctorRepository.chooseRandomDoctorAvailableOnTheDate(data.specialty(), data.date());
     }
 
+    //Método de cancelamento de consulta
     public void cancel(@Valid AppointmentCancellationData data) {
         if (!appointmentRepository.existsById(data.appointmentId())){
             throw new ValidationException("Informed appointment Id does not exist!");

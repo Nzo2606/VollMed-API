@@ -71,8 +71,7 @@ public class AppointmentService {
         if (data.specialty() == null){
             throw new ValidationException("Specialty is mandatory when doctor is not choosen");
         }
-
-        return doctorRepository.chooseRandomDoctorAvailableOnTheDate(data.specialty(), data.data());
+        return doctorRepository.chooseRandomDoctorAvailableOnTheDate(data.specialty(), data.date());
     }
 
     public void cancel(@Valid AppointmentCancellationData data) {

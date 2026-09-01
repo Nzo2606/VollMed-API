@@ -23,6 +23,6 @@ public record AppointmentDetailData(
 
     public AppointmentDetailData(Appointment appointment) {
         this(appointment.getId(), appointment.getDoctor().getId(),
-                appointment.getPatient().getId(), appointment.getData());
+                appointment.getPatient().getId(), appointment.getDate(), appointment.getStatus(), appointment.getCancellation_Reason());
     }
 }

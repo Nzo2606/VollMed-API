@@ -53,6 +53,8 @@ public class AppointmentService {
         var appointment = new Appointment(doctor, patient, data.date());
         appointment.setStatus(data);
         appointmentRepository.save(appointment);
+
+        return new AppointmentDetailData(appointment);
     }
 
     //Método de listagem de consultas

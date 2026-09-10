@@ -10,6 +10,7 @@
           <option value="api" />
           <option value="api" />
           <option value="api" />
+          <option value="api" />
         </list>
       </option>
       <option name="ignoredPackages">
@@ -19,10 +20,12 @@
           <option value="org.springframework:spring-web:7.0.6" />
           <option value="org.springframework:spring-webmvc:7.0.6" />
           <option value="org.springframework.security:spring-security-config:6.3.1" />
+          <option value="ch.qos.logback:logback-classic:1.5.6" />
         </list>
       </option>
       <option name="ignoredReasons">
         <list>
+          <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />

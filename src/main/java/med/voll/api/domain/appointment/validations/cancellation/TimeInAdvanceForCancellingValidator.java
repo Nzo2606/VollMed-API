@@ -23,7 +23,7 @@ public class TimeInAdvanceForCancellingValidator implements CancellationValidato
 
          var differenceInHours = Duration.between(now, appointmentDate.getDate()).toHours();
 
-         if (differenceInHours < 24){
+         if (differenceInHours < 24 && appointmentDate.getStatus().equals("EM AGUARDO")){
              throw new ValidationException("The Appointment can only be cancelled in a 24 hours advance!");
          }
     }

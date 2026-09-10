@@ -3,16 +3,24 @@ package med.voll.api.domain.appointment;
 
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
+import med.voll.api.domain.appointment.validations.cancellation.CancellationValidator;
+import med.voll.api.domain.appointment.validations.dtos.AppointmentCancellationData;
+import med.voll.api.domain.appointment.validations.dtos.AppointmentDetailData;
+import med.voll.api.domain.appointment.validations.dtos.AppointmentSchedulingData;
+import med.voll.api.domain.appointment.validations.schedulling.AppointmentSchedulingValidator;
 import med.voll.api.domain.doctor.Doctor;
 import med.voll.api.domain.doctor.DoctorRepository;
 import med.voll.api.domain.patient.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class AppointmentService {
-
-    private AppointmentSchedulingData schedulingData;
 
     @Autowired
     private AppointmentRepository appointmentRepository;
@@ -51,15 +59,21 @@ public class AppointmentService {
         }
 
         var appointment = new Appointment(doctor, patient, data.date());
-        appointment.setStatus(data);
+        appointment.setStatus();
         appointmentRepository.save(appointment);
 
         return new AppointmentDetailData(appointment);
     }
 
+    @Transactional
     //Método de listagem de consultas
     public Page<AppointmentDetailData> listAll(Pageable pagination){
-        return appointmentRepository.findAll(pagination).map(AppointmentDetailData::new);
+        return appointmentRepository.findAll(pagination)
+                .map(appointment -> {
+                    appointment.setStatus();
+                    return new AppointmentDetailData(appointment);
+                });
+
     }
 
     //Método de escolha de médico
@@ -84,6 +98,7 @@ public class AppointmentService {
 
         var appointment = appointmentRepository.getReferenceById(data.appointmentId());
         appointment.cancel(data.reason());
-        appointment.setStatus(schedulingData);
+        appointment.setStatus();
     }
+
 }

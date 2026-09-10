@@ -12,6 +12,7 @@ import med.voll.api.domain.appointment.validations.dtos.AppointmentSchedulingDat
 import med.voll.api.domain.doctor.Doctor;
 import med.voll.api.domain.patient.Patient;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Table(name = "appointment")
@@ -47,11 +48,11 @@ public class Appointment {
 
         private String status;
 
-        public void setStatus(AppointmentSchedulingData data) {
+        public void setStatus() {
                 if (cancellation_Reason != null){
                         this.status = "CANCELADA";
                 }
-                else if (date.isAfter(data.date())) {
+                else if (date.isBefore(LocalDateTime.now())) {
                         this.status = "CONCLUÍDA";
                 }
                 else {

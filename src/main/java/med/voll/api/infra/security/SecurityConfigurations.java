@@ -37,6 +37,7 @@ public class SecurityConfigurations
                         sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // definimos a política de sessão como 'STATELESS'
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(HttpMethod.POST, "/login").permitAll(); // permissão integral de acesso ao endpoint '/login' na requisição 'POST'
+                    auth.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll(); // permissão integral de acesso aos endpoints relacionados ao SpringDoc
                     auth.anyRequest().authenticated(); // definição de todas as outras requisições como autenticadas ('authenticated')
                 })
                 .addFilterBefore(

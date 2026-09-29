@@ -73,6 +73,81 @@ class DoctorRepositoryTest {
 
     }
 
+    @Test
+    @DisplayName("It should response `null` when there are no doctors registered in the database")
+    void chooseRandomDoctorAvailableOnTheDateScenario3() {
+        // given ou arrange
+        var nextMondayAt10 = LocalDate.now()
+                .with(TemporalAdjusters.next(DayOfWeek.MONDAY))
+                .atTime(10, 0);
+
+        //when ou act
+        var availableDoctor = doctorRepository.chooseRandomDoctorAvailableOnTheDate(Specialty.CARDIOLOGY, nextMondayAt10);
+
+        //then ou assert
+        assertThat(availableDoctor).isNull();
+    }
+
+
+    @Test
+    @DisplayName("It should not response any doctors with the required specialty")
+    void chooseRandomDoctorAvailableOnTheDateScenario4() {
+        // given ou arrange
+        var nextMondayAt10 = LocalDate.now()
+                .with(TemporalAdjusters.next(DayOfWeek.MONDAY))
+                .atTime(10, 0);
+
+        var doctor = registerDoctor("Doctor", "doctor@voll.med", "234567", Specialty.DERMATOLOGY);
+
+        //when ou act
+        var availableDoctor = doctorRepository.chooseRandomDoctorAvailableOnTheDate(Specialty.CARDIOLOGY, nextMondayAt10);
+
+        //then ou assert
+        assertThat(availableDoctor).isNull();
+    }
+
+    @Test
+    @DisplayName("It should response only one doctor, even though there are more available on the date and with the required specialty")
+    void chooseRandomDoctorAvailableOnTheDateScenario5() {
+        // given ou arrange
+        var nextMondayAt10 = LocalDate.now()
+                .with(TemporalAdjusters.next(DayOfWeek.MONDAY))
+                .atTime(10, 0);
+
+        var doctor = registerDoctor("Doctor", "doctor@voll.med", "234567", Specialty.DERMATOLOGY);
+        var doctor2 = registerDoctor("Doctor2", "doctor2@voll.med", "345678", Specialty.DERMATOLOGY);
+        var doctor3 = registerDoctor("Doctor3", "doctor3@voll.med", "456789", Specialty.DERMATOLOGY);
+
+
+        //when ou act
+        var availableDoctor = doctorRepository.chooseRandomDoctorAvailableOnTheDate(Specialty.DERMATOLOGY, nextMondayAt10);
+
+        //then ou assert
+        assertThat(availableDoctor).isIn(doctor, doctor2, doctor3);
+    }
+
+    @Test
+    @DisplayName("It should response only the available doctors, filtering the unavailable ones")
+    void chooseRandomDoctorAvailableOnTheDateScenario6() {
+        // given ou arrange
+        var nextMondayAt10 = LocalDate.now()
+                .with(TemporalAdjusters.next(DayOfWeek.MONDAY))
+                .atTime(10, 0);
+
+        var doctor = registerDoctor("Doctor", "doctor@voll.med", "234567", Specialty.DERMATOLOGY);
+        var doctor2 = registerDoctor("Doctor2", "doctor2@voll.med", "345678", Specialty.DERMATOLOGY);
+        var doctor3 = registerDoctor("Doctor3", "doctor3@voll.med", "456789", Specialty.DERMATOLOGY);
+
+        var patient = registerPatient("Patient", "patient@email.com", "00000000000");
+
+        registerAppointment(doctor3, patient, nextMondayAt10);
+        //when ou act
+        var availableDoctor = doctorRepository.chooseRandomDoctorAvailableOnTheDate(Specialty.DERMATOLOGY, nextMondayAt10);
+
+        //then ou assert
+        assertThat(availableDoctor).isIn(doctor, doctor2);
+    }
+
 
 
 

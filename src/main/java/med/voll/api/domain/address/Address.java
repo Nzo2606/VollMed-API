@@ -16,7 +16,7 @@ public class Address {
     String street;
     String neighborhood;
     @Column(name = "zip_code")
-    String zip_code;
+    String zipCode;
     String city;
     String state;
     String complement;
@@ -25,7 +25,7 @@ public class Address {
     public Address(AddressData address) {
         this.street = address.street();
         this.neighborhood = address.neighborhood();
-        this.zip_code = address.zip_code();
+        this.zipCode = address.zip_code();
         this.city = address.city();
         this.state = address.state();
         this.complement = address.complement();
@@ -40,7 +40,7 @@ public class Address {
             this.neighborhood = data.neighborhood();
         }
         if (data.zip_code() != null){
-            this.zip_code = data.zip_code();
+            this.zipCode = data.zip_code();
         }
         if (data.city() != null){
             this.city = data.city();

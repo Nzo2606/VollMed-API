@@ -87,13 +87,4 @@ class AppointmentControllerTest {
 
         assertThat(response.getContentAsString()).isEqualTo(expectedJson);
     }
-
-
-    @Test
-    void listAppointments() {
-    }
-
-    @Test
-    void cancel() {
-    }
 }

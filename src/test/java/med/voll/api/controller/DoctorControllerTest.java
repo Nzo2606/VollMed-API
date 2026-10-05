@@ -9,6 +9,7 @@ import med.voll.api.domain.doctor.dtos.DoctorDetailData;
 import med.voll.api.domain.doctor.dtos.DoctorRegistrationData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -65,12 +66,13 @@ class DoctorControllerTest {
                 Specialty.CARDIOLOGY,
                 addressData());
 
-        when(repository.save(any())).thenReturn(new Doctor(registerData));
+        when(repository.save(ArgumentMatchers.any())).thenReturn(new Doctor(registerData));
 
         var response = mvc
                 .perform(post("/doctors")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(doctorRegistrationDataJson.write(registerData).getJson()));
+                    .content(doctorRegistrationDataJson.write(registerData).getJson()))
+                .andReturn().getResponse();
 
         var detailData = new DoctorDetailData(
                 null,
@@ -83,10 +85,9 @@ class DoctorControllerTest {
 
         var expectedJson = doctorDetailDataJson.write(detailData).getJson();
 
-        assertThat(response.getStatus()).isEqualTo((HttpStatus.CREATED.value());
-        assertThat(response.getContentAsSrtring()).isEqualTo((expectedJson);
+        assertThat(response.getStatus()).isEqualTo((HttpStatus.CREATED.value()));
+        assertThat(response.getContentAsString()).isEqualTo((expectedJson));
 
-                )
     }
 
 
@@ -95,7 +96,7 @@ class DoctorControllerTest {
                 "street xpto",
                 "neighborhood",
                 "00000000",
-                "Brasília",
+                "Brasilia",
                 "DF",
                 null,
                 null
